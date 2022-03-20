@@ -1,0 +1,8 @@
+{
+  "name": "clean-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/juuliana/clean-node.git",
+  "author": "juuliana <jumaju10@hotmail.com>",
+  "license": "MIT"
+}
