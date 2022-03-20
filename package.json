@@ -6,7 +6,7 @@
   "author": "juuliana <jumaju10@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "test:staged": "jest"
   },
   "standard": {
