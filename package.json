@@ -8,6 +8,11 @@
   "scripts": {
     "test": "jest"
   },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
   "devDependencies": {
     "husky": "^7.0.4",
     "jest": "^27.5.1",
