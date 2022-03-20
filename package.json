@@ -5,24 +5,13 @@
   "repository": "https://github.com/juuliana/clean-node.git",
   "author": "juuliana <jumaju10@hotmail.com>",
   "license": "MIT",
-  "lint-staged": {
-    "*.js": [
-      "standard --fix",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "scripts": {
+    "test": "jest"
   },
   "devDependencies": {
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "standard": "^16.0.4"
-  },
-  "scripts": {
-    "test": "jest"
   }
 }
