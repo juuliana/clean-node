@@ -24,6 +24,7 @@
     "standard": "^16.0.4"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "validator": "^13.7.0"
   }
 }
