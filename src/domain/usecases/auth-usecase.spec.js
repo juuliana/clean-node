@@ -1,6 +1,28 @@
 const { MissingParamError } = require('../../utils/errors')
 const AuthUseCase = require('./auth-usecase')
 
+const makeUpdateAccessTokenRepositoryWithError = () => {
+  class UpdateAccessTokenRepositoryWithError {
+    async update () {
+      return new Error()
+    }
+  }
+
+  return new UpdateAccessTokenRepositoryWithError()
+};
+
+const makeUpdateAccessTokenRepository = () => {
+  class UpdateAccessTokenRepository {
+    async update (userId, accessToken) {
+      this.userId = userId
+      this.accessToken = accessToken
+      return true
+    }
+  }
+
+  return new UpdateAccessTokenRepository()
+};
+
 const makeTokenGenerator = () => {
   class TokenGenerator {
     async generate (userId) {
@@ -80,14 +102,22 @@ const makeSut = () => {
   const tokenGeneratorSpy = makeTokenGenerator()
   const encrypterSpy = makeEncrypter()
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+  const updateAccessTokenRepositorySpy = makeUpdateAccessTokenRepository()
 
   const sut = new AuthUseCase({
     loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+    updateAccessTokenRepository: updateAccessTokenRepositorySpy,
     encrypter: encrypterSpy,
     tokenGenerator: tokenGeneratorSpy
   })
 
-  return { sut, loadUserByEmailRepositorySpy, encrypterSpy, tokenGeneratorSpy }
+  return {
+    sut,
+    loadUserByEmailRepositorySpy,
+    updateAccessTokenRepositorySpy,
+    encrypterSpy,
+    tokenGeneratorSpy
+  }
 };
 
 describe('Auth UseCase ', () => {
@@ -149,6 +179,23 @@ describe('Auth UseCase ', () => {
     await sut.auth('valid_email@email.com', 'valid_password')
 
     expect(tokenGeneratorSpy.userId).toBe(loadUserByEmailRepositorySpy.user.id)
+  })
+
+  test('Should call UpdateAccessTokenRepository with correct values', async () => {
+    const {
+      sut,
+      updateAccessTokenRepositorySpy,
+      loadUserByEmailRepositorySpy,
+      tokenGeneratorSpy
+    } = makeSut()
+    await sut.auth('valid_email@email.com', 'valid_password')
+
+    expect(updateAccessTokenRepositorySpy.userId).toBe(
+      loadUserByEmailRepositorySpy.user.id
+    )
+    expect(updateAccessTokenRepositorySpy.accessToken).toBe(
+      tokenGeneratorSpy.accessToken
+    )
   })
 
   test('Should return an accessToken if correct credentials are provided', async () => {
