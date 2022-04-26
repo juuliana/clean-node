@@ -1,11 +1,12 @@
 {
   "name": "clean-node",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/main/index.js",
   "repository": "https://github.com/juuliana/clean-node.git",
   "author": "juuliana <jumaju10@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node src/main/index.js",
     "test": "jest --colors --noStackTrace --passWithNoTests",
     "test:unit": "yarn test -- --watchAll -c jest-unit-config.js",
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "express": "^4.18.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.1",
     "validator": "^13.7.0"
