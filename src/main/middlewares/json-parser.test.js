@@ -8,7 +8,7 @@ describe('JSON Parser Middleware ', () => {
     })
 
     await request(app)
-      .post('/test_cors')
+      .post('/test_json_parser')
       .send({ name: 'Juliana' })
       .expect({ name: 'Juliana' })
   })
